@@ -1,4 +1,9 @@
+import re
 import nltk
+from string import punctuation
+punctuation += "–»«"
+clean_raw = re.compile('<.*?>')
+
 
 class HTMLCleaner:
     def __init__(self, text):
