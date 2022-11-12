@@ -6,43 +6,12 @@ russian_stopwords.extend(
 )
 
 
-class ParseTokensOnTags:
-    def __init__(self, sentence, language="ru_core_news_sm"):
-        self.sentence = sentence
-        self.nlp = spacy.load(language)
-        # self.nlp = spacy.blank("ru")
+class ParseTokenOnTags:
+    def __init__(self, word):
+        self.word = word
 
     def action(self):
-        return list(map(lambda a: {"text": a.text, "type": a.pos_, "dependence": a.dep_}, self.nlp(self.sentence)))
-
-
-class ParseTokensOnTags:
-    def __init__(self, sentence, language="ru_core_news_sm"):
-        self.sentence = sentence
-        self.nlp = spacy.load(language)
-        # self.nlp = spacy.blank("ru")
-
-    def action(self):
-        return list(map(lambda a: {"text": a.text, "type": a.pos_, "dependence": a.dep_}, self.nlp(self.sentence)))
-
-
-class ParseTokensOnMorphs:
-    def __init__(self, sentence, language="ru_core_news_sm"):
-        self.sentence = sentence
-        self.nlp = spacy.load(language)
-        # self.nlp = spacy.blank("ru")
-
-    def action(self):
-        return list(
-                    map(
-                        lambda a: 
-                        ParseTokenOnMorphs(a).action(), 
-                        filter(
-                               lambda a: a.text not in russian_stopwords, 
-                               self.nlp(self.sentence)
-                               )
-                        )
-                    )
+        return {"text": self.word.text, "type": self.word.pos_, "dependence": self.word.dep_}
 
 
 class ParseTokenOnMorphs:
@@ -62,12 +31,11 @@ class ParseTokenOnMorphs:
             
 
 
-class ParseTokensOnAll:
-    def __init__(self, sentence, language="ru_core_news_sm"):
-        self.sentence = sentence
-        self.nlp = spacy.load(language)
+class ParseTokenOnAll:
+    def __init__(self, word):
+        self.word = word
 
     def action(self):
-        return list(map(lambda a: {**{"text": a.text, "type": a.pos_, "dependence": a.dep_, "morphs": a}, **ParseTokenOnMorphs(a).action()}, self.nlp(self.sentence)))
+        return {**ParseTokenOnTags(self.word).action(), **ParseTokenOnMorphs(self.word).action()}
 
 
