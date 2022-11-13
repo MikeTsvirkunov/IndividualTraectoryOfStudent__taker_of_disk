@@ -9,6 +9,7 @@ import re
 import Levenshtein
 import pymorphy2
 import pandas
+from pathlib import Path
 morph = pymorphy2.MorphAnalyzer()
 nlp = spacy.load("ru_core_news_sm")
 
@@ -76,12 +77,19 @@ for url in artificial_intelligence:
                     pass
 
 print(len(s))
-k = dict()
+k = {"words_pair": [], "nums": []}
 for i in s:
     if s[i] > 1:
-        k[i] = s[i]
-df = pandas.DataFrame(s)
-df.to_csv()
+        k["words_pair"].append(" ".join(i))
+        k["nums"].append(s[i])
+
+
+df = pandas.DataFrame(k)
+filepath = Path('./out.csv')
+# filepath.parent.mkdir(parents=True, exist_ok=True)
+df.to_csv(filepath)
+# df = pandas.DataFrame(s)
+# df.to_csv()
 # compression_opts = dict(method='zip',
 #                         archive_name='out.csv')
 # df.to_csv('out.zip', index=False, compression=compression_opts)
