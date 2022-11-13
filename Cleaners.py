@@ -5,7 +5,7 @@ from nltk.corpus import stopwords
 russian_stopwords = stopwords.words("russian")
 russian_stopwords.extend(
     ['это', "который", 'но', 'например',
-        'которые', 'none', re.compile('\w*.')]
+        'которые', 'none']
 )
 punctuation = list(map(lambda i: i, punctuation))
 # punctuation += "–»« \n\t".split("")

@@ -56,45 +56,24 @@ for url in artificial_intelligence:
                 re.match(Cleaners.rm_spaces, i[0].text) or 
                 re.match(Cleaners.rm_spaces, i[1].text)):
                 try:
-                    # print(CheckersOfWord.CompareRoleOfPaireInPercents(*i).action())
                     if CheckersOfWord.ConectiablePercentsOfPaire(*i).action() > 40 and CheckersOfWord.CompareRoleOfPaireInPercents(*i).action() < 70:
                         # w = sorted(list(map(lambda w: max(morph.parse(w.text), key=lambda z: z.score), i)))
                         # k = tuple([w[0].normal_form, w[1].normal_form])
-                        k = tuple(i)
-                        # print(type(k[0]))
+                        
+                        k = tuple(sorted(map(lambda a: a.text, i)))
                         try:
                             f = True
-                            # print(Levenshtein.ratio(k[1], k[0]))
-                            # print(k)
                             for j in s.keys():
-                                # print(k[0])
-                                # print(Levenshtein.ratio(j[0], k[0]) )
-                                if Levenshtein.ratio(j[0], k[0]) > 0.5 and Levenshtein.ratio(j[1], k[1]) > 0.5:
+                                if Levenshtein.ratio(j[0], k[0]) > 0.7 and Levenshtein.ratio(j[1], k[1]) > 0.7:
                                     s[k] += 1
                                     f = False
                             if f:
-                                # print(k)/
-                                # print("added")
-                                s[k] = 1
+                                if len(list(filter(lambda a: a not in ParseToken.russian_stopwords and a not in Cleaners.punctuation, k))) ==2:
+                                    s[k] = 1
                         except:
                             pass
-                            # print("err")
-                        # if k not in s:
-                        #     s[k] = 1
-                        # else:
-                        #     s[k] += 1
-                            
-                        # print(*i)
-                        # if " ".join(i) not in s.keys():
-                        #     if " ".join(i[::-1]) not in s.keys():
-                        #         s[" ".join(i)] = 1
-                        #     else:
-                        #         s[" ".join(i)[::-1]] += 1
-                        # else:
-                        #     s[" ".join(i)] += 1
                 except:
                     pass
-                    # print
 
 print(len(s))
 for i in s:
