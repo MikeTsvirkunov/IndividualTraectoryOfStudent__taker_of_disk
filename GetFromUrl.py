@@ -10,9 +10,9 @@ class GetUrlText:
         self.url = url
 
     def action(self):
-        soup = BeautifulSoup(get(self.url,
-                                 verify=False).text,
-                             'html.parser')
+        with get(self.url, verify=False) as r:
+            soup = BeautifulSoup(r.text, 'html.parser')
+            r.close()
         return ' '.join([str(i.string).lower() for i in soup.find_all('p')])
 
 

@@ -8,6 +8,7 @@ import GetFromUrl
 import re
 import Levenshtein
 import pymorphy2
+import pandas
 morph = pymorphy2.MorphAnalyzer()
 nlp = spacy.load("ru_core_news_sm")
 
@@ -44,7 +45,6 @@ artificial_intelligence = [
 # url = "https://ru.m.wikipedia.org/wiki/%D0%98%D1%81%D0%BA%D1%83%D1%81%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9_%D0%B8%D0%BD%D1%82%D0%B5%D0%BB%D0%BB%D0%B5%D0%BA%D1%82"
 
 s = dict()
-# s.update({"w": 1})
 for url in artificial_intelligence:
     text = GetFromUrl.GetCleanUrlText(url).action()
     senteces_of_text = Spliters.SplitOnSentences(text).action()
@@ -76,6 +76,12 @@ for url in artificial_intelligence:
                     pass
 
 print(len(s))
+k = dict()
 for i in s:
     if s[i] > 1:
-        print(i)
+        k[i] = s[i]
+df = pandas.DataFrame(s)
+df.to_csv()
+# compression_opts = dict(method='zip',
+#                         archive_name='out.csv')
+# df.to_csv('out.zip', index=False, compression=compression_opts)
