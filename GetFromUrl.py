@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 from requests import get
 import urllib3
+import Cleaners
 urllib3.disable_warnings()
 
 
@@ -31,5 +32,4 @@ class GetCleanUrlText:
         soup = BeautifulSoup(get(self.url,
                                  verify=False).text,
                              'html.parser')
-        return ' '.join(
-            map(lambda i: (str(i.text)).lower(), soup.find_all('p')))
+        return ' '.join(map(lambda i: Cleaners.HTMLCleaner((str(i.text)).lower()).action(), soup.find_all('p')))
