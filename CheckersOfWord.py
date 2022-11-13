@@ -3,6 +3,7 @@ from itertools import combinations
 import Cleaners
 
 
+# Проверяет связность слов по их свойствам (род, число, падеж...)
 class ConectiablePercentsOfPaire:
     def __init__(self, word1, word2):
         self.word1 = word1
@@ -22,6 +23,7 @@ class ConectiablePercentsOfPaire:
                         self.word2).action().items()))).action()
 
 
+# Сравнивает роли слов (вид, часть речи ...)
 class CompareRoleOfPaireInPercents:
     def __init__(self, word1, word2):
         self.word1 = word1
@@ -41,6 +43,7 @@ class CompareRoleOfPaireInPercents:
                         self.word2).action().items()))).action()
 
 
+# Возвращает комбинации слов
 class GetCombOfWord:
     def __init__(self, words, size=2):
         self.words = words
@@ -50,6 +53,7 @@ class GetCombOfWord:
         return combinations(self.words, self.size)
 
 
+# Полная туфта, не работает
 class GetCleanCombOfWord:
     def __init__(self, words, size=2):
         self.words = words
@@ -63,6 +67,7 @@ class GetCleanCombOfWord:
                                              , self.words), self.size)
 
 
+# Сравнивает дискрипторы (словари)
 class DiscriptPercentCompare:
     def __init__(self, v1, v2):
         self.v1 = min(v1, v2, key=len)

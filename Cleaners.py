@@ -15,6 +15,7 @@ rm_href = re.compile('[\d+]')
 rm_short = re.compile('\w+\.')
 rm_spaces = re.compile('\s+')
 
+
 class HTMLCleaner:
     def __init__(self, text):
         self.text = text
