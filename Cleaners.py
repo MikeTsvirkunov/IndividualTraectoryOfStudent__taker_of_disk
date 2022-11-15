@@ -5,15 +5,16 @@ from nltk.corpus import stopwords
 russian_stopwords = stopwords.words("russian")
 russian_stopwords.extend(
     ['это', "который", 'но', 'например',
-        'которые', 'none']
+        'которые', 'none', "на", 'со', 'не', 'в']
 )
 punctuation = list(map(lambda i: i, punctuation))
 # punctuation += "–»« \n\t".split("")
-punctuation += ["\n", "\t", "-", "»", "«", " ", "\n ", " \t", "\t "]
+punctuation += ["\n", "\t", "-", "»", "«", " ", "\n ", " \t", "\t ", '—']
 rm_tag = re.compile('<.*?>')
-rm_href = re.compile('[\d+]')
+rm_href = re.compile('\[.+\]')
 rm_short = re.compile('\w+\.')
 rm_spaces = re.compile('\s+')
+rm_add = re.compile('\(.+\)')
 
 
 class HTMLCleaner:
@@ -38,3 +39,15 @@ class RMStopWords:
 
     def action(self):
         return filter(lambda i: i not in russian_stopwords, self.words)
+
+
+class CleanText:
+    def __init__(self, text, bad_patterns = [rm_href, rm_add]):
+        self.text = text.replace("\n", "")
+        self.bp = bad_patterns
+    
+    def action(self):
+        for i in self.bp:
+            self.text = re.sub(i, '', self.text)
+        self.text = re.sub(rm_spaces, ' ', self.text)
+        return self.text

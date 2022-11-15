@@ -75,3 +75,13 @@ class DiscriptPercentCompare:
 
     def action(self):
         return sum(map(lambda a: self.v1[a] == self.v2.get(a), self.v1)) / len(self.v2) * 100
+
+
+class IsBadWordPairs:
+    def __init__(self, word1, word2):
+        self.word1 = word1
+        self.word2 = word2
+    
+    def action(self):
+        return any(map(lambda a: a in Cleaners.punctuation + Cleaners.russian_stopwords, [self.word1, self.word2]))
+    
