@@ -7,6 +7,7 @@
 ## Workspace
 
 ### Algorithm
+Алгоритм в коде [HERE](https://colab.research.google.com/drive/1ofwYn-dvX4w1bc2i5Y2hguSogwbW2E3p?usp=sharing#scrollTo=cMrHGjg6XwTO).
 
 Главным является сортировка, редактирование информации, которую нам предостовляют, чтобы в последующем с ней было легко
 и удобно работать. Разделим наш начальный алгоритм на  этапы:
