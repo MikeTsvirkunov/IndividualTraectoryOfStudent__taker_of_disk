@@ -47,6 +47,6 @@ class CleanText:
     
     def action(self):
         for i in self.bp:
-            self.text = re.sub(i, '', self.text)
+            self.text = re.sub(i, ' ', self.text)
         self.text = re.sub(rm_spaces, ' ', self.text)
         return self.text
