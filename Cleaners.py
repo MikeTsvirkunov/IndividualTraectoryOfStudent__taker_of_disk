@@ -41,7 +41,7 @@ class RMStopWords:
 
 
 class CleanText:
-    def __init__(self, text, bad_patterns = [rm_href, rm_add]):
+    def __init__(self, text, bad_patterns):
         self.text = text.replace("\n", " ")
         self.bp = bad_patterns
     
