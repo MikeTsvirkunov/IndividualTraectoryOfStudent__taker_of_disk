@@ -42,7 +42,7 @@ class RMStopWords:
 
 class CleanText:
     def __init__(self, text, bad_patterns = [rm_href, rm_add]):
-        self.text = text.replace("\n", "")
+        self.text = text.replace("\n", " ")
         self.bp = bad_patterns
     
     def action(self):
