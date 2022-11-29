@@ -19,31 +19,32 @@ url = "https://ru.m.wikipedia.org/wiki/%D0%98%D1%81%D0%BA%D1%83%D1%81%D1%81%D1%8
 s = list()
 r = Rake()
 
-# t = "почти каждый автор, пишущий книгу об ии, отталкивается в ней от какого-либо определения, рассматривая в его свете достижения этой науки. в философии не решён вопрос о природе и статусе человеческого интеллекта"
+t = "почти каждый автор, пишущий книгу об ии, отталкивается в ней от какого-либо определения, рассматривая в его свете достижения этой науки. в философии не решён вопрос о природе и статусе человеческого интеллекта"
 # t = "Почти каждый автор, пишущий книгу об ИИ, отталкивается в ней от какого-либо определения, рассматривая в его свете достижения этой науки."
 
+print(Cleaners.punctuation)
 # r.extract_keywords_from_text(t)
-# print(r.get_ranked_phrases_with_scores())
+# map(Cleaners.CleanText, r.get_ranked_phrases_with_scores())
 
-text = GetFromUrl.GetCleanUrlText(url).action()
-text_splited_on_senteces = Spliters.SplitOnSentences(text).action()
-for i in text_splited_on_senteces:
-    try:
-        for j in ParseTokens.ImportWordPairs(Cleaners.CleanText(i).action()).action():
-            if not CheckersOfWord.IsBadWordPairs(*j).action():
-                s.append(j)
-    except IndexError:
-        # print("Error:", Cleaners.CleanText(i).action())
-        r.extract_keywords_from_text(i)
-        for j in r.get_ranked_phrases_with_scores():
-            for k in ParseTokens.ImportWordPairs(j[1]).action():
-                if not CheckersOfWord.IsBadWordPairs(*k).action():
-                    s.append(k)
+# text = GetFromUrl.GetCleanUrlText(url).action()
+# text_splited_on_senteces = Spliters.SplitOnSentences(text).action()
+# for i in text_splited_on_senteces:
+#     try:
+#         for j in ParseTokens.ImportWordPairs(Cleaners.CleanText(i).action()).action():
+#             if not CheckersOfWord.IsBadWordPairs(*j).action():
+#                 s.append(j)
+#     except IndexError:
+#         # print("Error:", Cleaners.CleanText(i).action())
+#         r.extract_keywords_from_text(i)
+#         for j in r.get_ranked_phrases_with_scores():
+#             for k in ParseTokens.ImportWordPairs(j[1]).action():
+#                 if not CheckersOfWord.IsBadWordPairs(*k).action():
+#                     s.append(k)
 
         
-        # break
+#         # break
         
-print(*(i for i in s), sep="\n")
+# print(*(i for i in s), sep="\n")
 
 # Error: почти каждый автор, пишущий книгу об ии, отталкивается в ней от какого-либо определения, рассматривая в его свете достижения этой науки. в философии не решён вопрос о природе и статусе человеческого интеллекта
 # Error: тогда как обычная программа устанавливает один свой способ интерпретации данных, из-за чего её работа и выглядит предвзятой и чисто механической
